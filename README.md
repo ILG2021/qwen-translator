@@ -19,7 +19,7 @@ pip install unsloth[colab-new] xformers trl peft accelerate bitsandbytes
 ### 2. 准备数据
 将您的翻译数据保存为 `translate_data.json`（支持多行 JSON/JSONL），格式如下：
 ```json
-{"messages": [{"role": "user", "content": "将以下文本翻译为中文..."}, {"role": "assistant", "content": "你好"}]}
+{"messages": [{"role": "user", "content": "将以下文本翻译为{target_language}，注意只需要输出翻译后的结果，不要额外解释：\n\nWhy is seawater salty?"}, {"role": "assistant", "content": "海水为什么是咸的？"}]}
 ```
 您无需进行额外转换，训练脚本会自动识别此格式。
 
@@ -34,9 +34,4 @@ python train.py --resume
 ```
 训练完成后，会在项目目录下生成 `model_q4_k_m` 文件夹，其中包含导出的 GGUF 文件。
 
-### 4. 部署到 Ollama
-
-## 注意事项
-- **显存要求**: 推荐使用 12GB 或更高显存的 GPU（如 RTX 3060 12G, 4070 等）。
-- **训练量**: `train.py` 中的 `max_steps` 默认为 60，请根据您的数据量进行调整。
-- **自定义模板**: Qwen3.5 默认使用 ChatML 模板，Unsloth 会自动处理。
+### 4. 部署到 Ollam
